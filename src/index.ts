@@ -1,0 +1,16 @@
+﻿console.clear();
+console.log("=== Sprint 1 ===");
+const prix = 200;
+const quantite = 6;
+const totalSansTaxes = prix * quantite;
+const taxe = 6.85;
+const montantTaxe = totalSansTaxes * (taxe / 100);
+const totalAvecTaxes = totalSansTaxes + montantTaxe;
+const remise = 3;
+const montantRemise = totalAvecTaxes * (remise / 100);
+const totalFinal = totalAvecTaxes - montantRemise;
+console.log(`Prix unitaire : ${prix} `);
+console.log(`Quantité : ${quantite}`);
+console.log(`Taxe : ${taxe}%`);
+console.log(`Remise : ${remise}%`);
+console.log(`Total final : ${totalFinal.toFixed(2)} `);
