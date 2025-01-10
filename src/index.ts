@@ -18,29 +18,39 @@ const remises = [
     { seuil: 1000, taux: 3 },
 ];
 
+// Séquences ANSI pour le style
+const ANSI_RESET = "\x1b[0m";
+const ANSI_BOLD = "\x1b[1m";
+const ANSI_BLUE = "\x1b[34m";
+const ANSI_GREEN = "\x1b[32m";
+const ANSI_YELLOW = "\x1b[33m";
+const ANSI_RED = "\x1b[31m";
+const ANSI_CYAN = "\x1b[36m";
+const ANSI_MAGENTA = "\x1b[35m";
+
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
 
 console.clear();
-console.log("=== Sprint 4 : Validation des données ===");
+console.log(`${ANSI_BOLD}${ANSI_BLUE}=== Sprint 5 : CLI Stylisé ===${ANSI_RESET}`);
 
 // Étape 1 : Choisir l'état
 function choisirEtat() {
-    console.log("\nÉtats disponibles :");
+    console.log(`${ANSI_YELLOW}\nÉtats disponibles :${ANSI_RESET}`);
     etats.forEach((etat, index) => {
-        console.log(`${index + 1}. ${etat.nom} (Taxe: ${etat.taxe}%)`);
+        console.log(`${ANSI_GREEN}${index + 1}. ${etat.nom} (Taxe: ${etat.taxe}%)${ANSI_RESET}`);
     });
 
-    rl.question("\nChoisissez un état (ID) : ", (etatID) => {
+    rl.question(`${ANSI_BLUE}\nChoisissez un état (ID) : ${ANSI_RESET}`, (etatID) => {
         const index = parseInt(etatID, 10) - 1;
         if (isNaN(index) || index < 0 || index >= etats.length) {
-            console.log("\nID invalide, réessayez !");
+            console.log(`${ANSI_RED}\nID invalide, réessayez !${ANSI_RESET}`);
             choisirEtat();
         } else {
             const etat = etats[index];
-            console.log(`\nÉtat sélectionné : ${etat.nom} (Taxe: ${etat.taxe}%)`);
+            console.log(`${ANSI_GREEN}\nÉtat sélectionné : ${etat.nom} (Taxe: ${etat.taxe}%)${ANSI_RESET}`);
             demanderQuantite(etat);
         }
     });
@@ -49,11 +59,11 @@ function choisirEtat() {
 // Étape 2 : Demander la quantité avec validation
 function demanderQuantite(etat: { nom: string; taxe: number }) {
     const prixUnitaire = 200; // Prix fixe
-    console.log(`\nPrix unitaire : ${prixUnitaire} `);
-    rl.question("\nEntrez la quantité : ", (quantiteInput) => {
+    console.log(`${ANSI_YELLOW}Prix unitaire : ${prixUnitaire} ${ANSI_RESET}`);
+    rl.question(`${ANSI_BLUE}\nEntrez la quantité : ${ANSI_RESET}`, (quantiteInput) => {
         const quantite = parseInt(quantiteInput, 10);
         if (isNaN(quantite) || quantite <= 0) {
-            console.log("\nQuantité invalide, réessayez !");
+            console.log(`${ANSI_RED}\nQuantité invalide, réessayez !${ANSI_RESET}`);
             demanderQuantite(etat);
         } else {
             calculerCommande(prixUnitaire, quantite, etat);
@@ -75,13 +85,14 @@ function calculerCommande(prixUnitaire: number, quantite: number, etat: { nom: s
     const totalFinal = totalAvecTaxes - montantRemise;
 
     // Affichage des résultats
-    console.log(`\nPrix unitaire : ${prixUnitaire} `);
-    console.log(`Quantité : ${quantite}`);
-    console.log(`Total sans taxes : ${totalSansTaxes.toFixed(2)} `);
-    console.log(`Taxe (${etat.taxe}%) : ${montantTaxe.toFixed(2)} `);
-    console.log(`Total avec taxes : ${totalAvecTaxes.toFixed(2)} `);
-    console.log(`Remise (${tauxRemise}%) : ${montantRemise.toFixed(2)} `);
-    console.log(`Total final : ${totalFinal.toFixed(2)} `);
+    console.log(`${ANSI_BOLD}\n=== Résumé de la commande ===${ANSI_RESET}`);
+    console.log(`${ANSI_YELLOW}Prix unitaire : ${prixUnitaire} ${ANSI_RESET}`);
+    console.log(`${ANSI_YELLOW}Quantité : ${quantite}${ANSI_RESET}`);
+    console.log(`${ANSI_YELLOW}Total sans taxes : ${totalSansTaxes.toFixed(2)} ${ANSI_RESET}`);
+    console.log(`${ANSI_CYAN}Taxe (${etat.taxe}%) : ${montantTaxe.toFixed(2)} ${ANSI_RESET}`);
+    console.log(`${ANSI_CYAN}Total avec taxes : ${totalAvecTaxes.toFixed(2)} ${ANSI_RESET}`);
+    console.log(`${ANSI_MAGENTA}Remise (${tauxRemise}%) : ${montantRemise.toFixed(2)} ${ANSI_RESET}`);
+    console.log(`${ANSI_GREEN}Total final : ${totalFinal.toFixed(2)} ${ANSI_RESET}`);
 
     rl.close();
 }
