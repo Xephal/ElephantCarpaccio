@@ -44,13 +44,13 @@ Un projet pédagogique découpé en **sprints courts** pour construire progressi
 ## 🛠️ **Comment exécuter le projet**
 
 1. Clone ce dépôt sur ta machine locale.
-2. Installe les dépendances :  
+2. Ouvre un terminal et entre la commande
    ```bash
    npm install
    ```
-3. Lance l'application :  
+3.Ouvre un terminal et entre la commande
    ```bash
-   npm start
+   npx ts-node .\src\index.ts
    ```
 
 ---
