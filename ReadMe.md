@@ -50,7 +50,7 @@ Un projet pédagogique découpé en **sprints courts** pour construire progressi
    ```
 3.Ouvre un terminal et entre la commande
    ```bash
-   npx ts-node .\src\index.ts
+   npx ts-node ./src/index.ts
    ```
 
 ---
